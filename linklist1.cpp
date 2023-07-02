@@ -43,6 +43,137 @@ void insertAtlast()
 	printf("\nNode Inserted At End");
 }
 
+void insertAfter()
+{
+	
+	int n,target;
+	struct node *ptrnew , *ptrthis;
+
+	printf("\nEnter Number After Which u wanna put:\n");
+	scanf("%d\n",&target);
+	for(ptrthis=header;ptrthis!=NULL;ptrthis=ptrthis->next)
+	{
+		if(ptrthis->data==target)
+		{
+				printf("\nEnter Your Data To Add in Middle:\n");
+				scanf("%d\n",&n);
+				ptrnew=getnode(n);
+				ptrnew->next=ptrthis->next;
+				ptrthis->next=ptrnew;
+				printf("\nNode Inserted After %d:",target);
+				return;
+		}
+	}
+	
+	printf("\nTarget Node Not Found");
+}
+void insertBefore()
+{
+	
+int n,target;
+	struct node *ptrnew , *ptrthis,*ptrback; //ptrback to follow
+
+	printf("\nEnter Number Before Which u wanna put:\n");
+	scanf("%d",&target);
+	for(ptrthis=ptrback=header;ptrthis!=NULL;ptrthis=ptrthis->next)
+	{
+		if(ptrthis->data==target)
+		{
+				printf("\nEnter Your Data To Add in Middle:\n");
+				scanf("%d",&n);
+				ptrnew=getnode(n);
+				if(ptrthis==header)
+				{
+					ptrnew->next=header;
+					header=ptrnew;
+				}
+				else
+				{
+					
+					ptrnew->next=ptrthis;
+					ptrback->next=ptrnew;
+					
+				}
+			
+				printf("\nNode Inserted before %d\n",target);
+				return;
+		}
+		ptrback=ptrthis;
+		
+	}
+	
+	printf("\nTarget Node Not Found\n");	
+	
+	
+}
+
+void insertAtFront()
+{
+	int n;
+	struct node *ptrnew;
+	printf("\nEnter A Number:\n");
+	scanf("%d",&n);
+	ptrnew=getnode(n); //new node came
+	ptrnew->next=header; 
+	header=ptrnew;
+		
+	printf("\nNode Inserted At Front");
+}
+	
+void removeFromFront()	
+
+{
+struct node *ptrthis;	
+		if(header==NULL)
+		{
+		
+		printf("\nEmpty List\n");
+			
+		}	
+	else
+	{
+		
+		ptrthis=header;
+		header=header->next;
+		free(ptrthis);
+		printf("\nNode Removed From Front.");
+		
+	}
+	
+	
+}
+void removeFromLast()
+{
+	struct node*ptrthis,*ptrback;
+
+	if(header==NULL)
+	{
+		printf("\nListEmpty.");
+	}
+	else
+	{
+		for(ptrthis=ptrback=header;ptrthis->next!=NULL;ptrthis=ptrthis->next)
+		{
+			
+			ptrback=ptrthis;
+			
+		}
+		if(ptrthis==header)
+		{
+		
+			header=NULL;
+			
+		}
+		else
+		{
+			ptrback->next=NULL;
+			free(ptrthis);
+			printf("\nRemoved From Last.");
+		}		
+	}
+	
+}
+
 void display()
 {
 	struct node*ptrthis;
@@ -60,23 +191,25 @@ void display()
 	}
 }
 
-
-
 int main()
 {
 	char ch;
 	while(1)
 	{
 		system("cls");
-		printf("\nSELECT OPTION\n1.Insert\n2.Remove\n3.List\n4.Exit\n");
+		printf("\nSELECT OPTION\n1.Insert\n2.RemoveFromFront\n3.List\n4.insertAtFront\n5.InsertAfter\n6.insertBefore\n7.RemoveFromlast\n8.Exit\n\n");
 		ch=getche();
 		switch(ch)
 		{
 			case '1':insertAtlast();break;
-			case '2':break;
+			case '2':removeFromFront();break;
 			case '3':printf("\n");display();break;
-			case '4':return 0;
-			
+			case '4' :insertAtFront();break;
+			case'5' :insertAfter();break;
+			case'6':insertBefore();break;
+			case'7':removeFromLast();break;
+			case '8':return 0;
+		
 			
 		}
 		getch();
